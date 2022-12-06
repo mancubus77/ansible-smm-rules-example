@@ -8,6 +8,7 @@ ansible-playbook main.yaml
 ```
 
 **Output**
+
 ```
 TASK [Generate show smm command] ***************************************************************************************************************
 ok: [localhost] => {
@@ -27,6 +28,20 @@ ok: [localhost] => {
 TASK [Generate show smm command] ***************************************************************************************************************
 ok: [localhost] => {
     "msg": "show SmmRuleSet=4"
+}
+
+TASK [Method Two, simple loop] *****************************************************************************************************************
+ok: [localhost] => (item=1) => {
+    "msg": "SmmRuleSet=1"
+}
+ok: [localhost] => (item=2) => {
+    "msg": "SmmRuleSet=2"
+}
+ok: [localhost] => (item=3) => {
+    "msg": "SmmRuleSet=3"
+}
+ok: [localhost] => (item=4) => {
+    "msg": "SmmRuleSet=4"
 }
 
 ```
