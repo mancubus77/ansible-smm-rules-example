@@ -14,5 +14,16 @@
         id="4"
 
   tasks:
-    - name: Include tasks
+    - name: Extract Smm IDs
+      set_fact:
+        smm_id_list: "{{ smmRules | regex_findall(rx_smm_id,'\\1') | default([]) }}"
+      vars:
+        rx_smm_id: 'SmmRuleSet=(\d+)'
+
+    - name: Method One, include Task
       include_tasks: tasks/main.yaml
+
+    - name: Method Two, simple loop 
+      debug:
+        msg: "SmmRuleSet={{ item }}"
+      with_items: "{{ smm_id_list }}"
