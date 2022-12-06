@@ -1,0 +1,18 @@
+---
+- name: Parsing
+  hosts: localhost
+  gather_facts: no
+  vars:
+    smmRules: -|
+      SmmRuleSet=1
+        id="1"
+      SmmRuleSet=2
+        id="2"
+      SmmRuleSet=3
+        id="3"
+      SmmRuleSet=4
+        id="4"
+
+  tasks:
+    - name: Include tasks
+      include_tasks: tasks/main.yaml

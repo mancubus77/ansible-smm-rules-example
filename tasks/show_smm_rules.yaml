@@ -1,0 +1,3 @@
+- name: Generate show smm command
+  debug: 
+    msg: "show SmmRuleSet={{ item }}"

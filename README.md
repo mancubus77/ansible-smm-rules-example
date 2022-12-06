@@ -1,0 +1,1 @@
+Simple example how to capture list smm IDs and run show SMM rules based on these IDs 

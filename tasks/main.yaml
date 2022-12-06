@@ -1,0 +1,12 @@
+- name: Extract Smm IDs
+  set_fact:
+    smm_id_list: "{{ smmRules | regex_findall(rx_smm_id,'\\1') | default([]) }}"
+  vars:
+    rx_smm_id: 'SmmRuleSet=(\d+)'
+
+- name: Print smm IDs list
+  debug:
+    msg: "SMM: {{ smm_id_list }}"
+
+- include_tasks: tasks/show_smm_rules.yaml
+  loop: "{{ smm_id_list }}"
