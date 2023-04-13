@@ -12,8 +12,18 @@
         id="3"
       SmmRuleSet=4
         id="4"
+    json_string: |-
+      [{"metric":{"endpoint":"etcd-metrics","instance":"10.0.32.201:9979","job":"etcd","namespace":"openshift-etcd","pod":"etcd-3apo4-svoscp01","service":"etcd"},"value":[1670328216.224,"3"]},{"metric":{"endpoint":"etcd-metrics","instance":"10.0.32.202:9979","job":"etcd","namespace":"openshift-etcd","pod":"etcd-3apo4-svoscp02","service":"etcd"},"value":[1670328216.224,"261"]},{"metric":{"endpoint":"etcd-metrics","instance":"10.0.32.203:9979","job":"etcd","namespace":"openshift-etcd","pod":"etcd-3apo4-svoscp03","service":"etcd"},"value":[1670328216.224,"8"]}]
 
   tasks:
+    - set_fact:
+        instances: "{{ json_string | from_json | json_query('[*].metric.instance') }}"
+
+    - set_fact:
+        nodes: "{{ instances | map('regex_replace','^(.+):(\\d+)','\\1')}}"
+
+    - pause: 
+
     - name: Extract Smm IDs
       set_fact:
         smm_id_list: "{{ smmRules | regex_findall(rx_smm_id,'\\1') | default([]) }}"
